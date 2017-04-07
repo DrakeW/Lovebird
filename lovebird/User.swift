@@ -7,25 +7,18 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 class User {
+    var id: String?
     var name: String?
     var email: String?
     var isSingle: Bool?
+    var partenrId: String?
     
-    init(name: String, email: String) {
+    init(_ id: String, name: String, email: String, status: Bool) {
+        self.id = id
         self.name = name
         self.email = email
-        self.isSingle = true
-    }
-    
-    static func getCurrentUser() -> User? {
-        if let user = FIRAuth.auth()?.currentUser {
-            let name = user.displayName
-            let email = user.email
-            return User(name: name!, email: email!)
-        }
-        return nil
+        self.isSingle = status
     }
 }
