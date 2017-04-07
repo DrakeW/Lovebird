@@ -7,21 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		325B30D720964C6CAC76BA93 /* Pods_lovebird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABC08C3E47A18A2C8E7A684 /* Pods_lovebird.framework */; };
 		B090599F1E970E9D00D93231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B090599E1E970E9D00D93231 /* AppDelegate.swift */; };
-		B09059A11E970E9D00D93231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059A01E970E9D00D93231 /* ViewController.swift */; };
+		B09059A11E970E9D00D93231 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059A01E970E9D00D93231 /* SignInViewController.swift */; };
 		B09059A41E970E9D00D93231 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09059A21E970E9D00D93231 /* Main.storyboard */; };
 		B09059A61E970E9D00D93231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09059A51E970E9D00D93231 /* Assets.xcassets */; };
 		B09059A91E970E9D00D93231 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09059A71E970E9D00D93231 /* LaunchScreen.storyboard */; };
+		B09059B41E970F4C00D93231 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059B31E970F4C00D93231 /* User.swift */; };
+		B09059B61E9710DD00D93231 /* Couple.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059B51E9710DD00D93231 /* Couple.swift */; };
+		B09059BA1E97152400D93231 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B09059B91E97152400D93231 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0ABC08C3E47A18A2C8E7A684 /* Pods_lovebird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lovebird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		38C639078202C3BC035B8DC4 /* Pods-lovebird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lovebird.release.xcconfig"; path = "Pods/Target Support Files/Pods-lovebird/Pods-lovebird.release.xcconfig"; sourceTree = "<group>"; };
 		B090599B1E970E9D00D93231 /* lovebird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lovebird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B090599E1E970E9D00D93231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B09059A01E970E9D00D93231 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B09059A01E970E9D00D93231 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		B09059A31E970E9D00D93231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B09059A51E970E9D00D93231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B09059A81E970E9D00D93231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B09059AA1E970E9D00D93231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B09059B31E970F4C00D93231 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B09059B51E9710DD00D93231 /* Couple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Couple.swift; sourceTree = "<group>"; };
+		B09059B91E97152400D93231 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FB07184E6E2E974ACD190D58 /* Pods-lovebird.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lovebird.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lovebird/Pods-lovebird.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +39,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				325B30D720964C6CAC76BA93 /* Pods_lovebird.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65446451DB348537483B3D97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0ABC08C3E47A18A2C8E7A684 /* Pods_lovebird.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		886F273A285210C05E3A0CF9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FB07184E6E2E974ACD190D58 /* Pods-lovebird.debug.xcconfig */,
+				38C639078202C3BC035B8DC4 /* Pods-lovebird.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B09059921E970E9D00D93231 = {
 			isa = PBXGroup;
 			children = (
 				B090599D1E970E9D00D93231 /* lovebird */,
 				B090599C1E970E9D00D93231 /* Products */,
+				886F273A285210C05E3A0CF9 /* Pods */,
+				65446451DB348537483B3D97 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +84,41 @@
 		B090599D1E970E9D00D93231 /* lovebird */ = {
 			isa = PBXGroup;
 			children = (
+				B09059B21E970EEB00D93231 /* controllers */,
+				B09059B11E970EE200D93231 /* views */,
+				B09059B01E970ECB00D93231 /* models */,
 				B090599E1E970E9D00D93231 /* AppDelegate.swift */,
-				B09059A01E970E9D00D93231 /* ViewController.swift */,
 				B09059A21E970E9D00D93231 /* Main.storyboard */,
 				B09059A51E970E9D00D93231 /* Assets.xcassets */,
 				B09059A71E970E9D00D93231 /* LaunchScreen.storyboard */,
 				B09059AA1E970E9D00D93231 /* Info.plist */,
+				B09059B91E97152400D93231 /* GoogleService-Info.plist */,
 			);
 			path = lovebird;
+			sourceTree = "<group>";
+		};
+		B09059B01E970ECB00D93231 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				B09059B31E970F4C00D93231 /* User.swift */,
+				B09059B51E9710DD00D93231 /* Couple.swift */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		B09059B11E970EE200D93231 /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		B09059B21E970EEB00D93231 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B09059A01E970E9D00D93231 /* SignInViewController.swift */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +128,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B09059AD1E970E9D00D93231 /* Build configuration list for PBXNativeTarget "lovebird" */;
 			buildPhases = (
+				80E72716F5AB84FCD4D42405 /* [CP] Check Pods Manifest.lock */,
 				B09059971E970E9D00D93231 /* Sources */,
 				B09059981E970E9D00D93231 /* Frameworks */,
 				B09059991E970E9D00D93231 /* Resources */,
+				54E6041046BD0A9456608B87 /* [CP] Embed Pods Frameworks */,
+				DCA580D5F11589107E8E1CCD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09059A91E970E9D00D93231 /* LaunchScreen.storyboard in Resources */,
+				B09059BA1E97152400D93231 /* GoogleService-Info.plist in Resources */,
 				B09059A61E970E9D00D93231 /* Assets.xcassets in Resources */,
 				B09059A41E970E9D00D93231 /* Main.storyboard in Resources */,
 			);
@@ -132,13 +193,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		54E6041046BD0A9456608B87 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lovebird/Pods-lovebird-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80E72716F5AB84FCD4D42405 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DCA580D5F11589107E8E1CCD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lovebird/Pods-lovebird-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B09059971E970E9D00D93231 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09059A11E970E9D00D93231 /* ViewController.swift in Sources */,
+				B09059A11E970E9D00D93231 /* SignInViewController.swift in Sources */,
 				B090599F1E970E9D00D93231 /* AppDelegate.swift in Sources */,
+				B09059B41E970F4C00D93231 /* User.swift in Sources */,
+				B09059B61E9710DD00D93231 /* Couple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +372,7 @@
 		};
 		B09059AE1E970E9D00D93231 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB07184E6E2E974ACD190D58 /* Pods-lovebird.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7T42TW2RNF;
@@ -274,6 +386,7 @@
 		};
 		B09059AF1E970E9D00D93231 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38C639078202C3BC035B8DC4 /* Pods-lovebird.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7T42TW2RNF;
@@ -304,6 +417,7 @@
 				B09059AF1E970E9D00D93231 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

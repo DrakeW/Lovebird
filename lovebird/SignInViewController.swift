@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import TextFieldEffects
 
-class ViewController: UIViewController {
+class SignInViewController: UIViewController {
 
+    @IBOutlet weak var emailTextField: HoshiTextField!
+    @IBOutlet weak var passwordTextField: HoshiTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +23,5 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
