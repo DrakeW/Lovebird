@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class User {
     var name: String?
@@ -17,5 +18,14 @@ class User {
         self.name = name
         self.email = email
         self.isSingle = true
+    }
+    
+    static func getCurrentUser() -> User? {
+        if let user = FIRAuth.auth()?.currentUser {
+            let name = user.displayName
+            let email = user.email
+            return User(name: name!, email: email!)
+        }
+        return nil
     }
 }

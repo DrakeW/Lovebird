@@ -8,6 +8,10 @@ target 'lovebird' do
   # Pods for lovebird
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKShareKit'
+  pod 'FBSDKLoginKit'
+  
   pod 'TextFieldEffects'
 
 end

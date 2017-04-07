@@ -16,6 +16,7 @@
 		B09059B41E970F4C00D93231 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059B31E970F4C00D93231 /* User.swift */; };
 		B09059B61E9710DD00D93231 /* Couple.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059B51E9710DD00D93231 /* Couple.swift */; };
 		B09059BA1E97152400D93231 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B09059B91E97152400D93231 /* GoogleService-Info.plist */; };
+		B09059BE1E972D2F00D93231 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059BD1E972D2F00D93231 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		B09059B31E970F4C00D93231 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B09059B51E9710DD00D93231 /* Couple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Couple.swift; sourceTree = "<group>"; };
 		B09059B91E97152400D93231 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B09059BD1E972D2F00D93231 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FB07184E6E2E974ACD190D58 /* Pods-lovebird.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lovebird.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lovebird/Pods-lovebird.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				B09059A01E970E9D00D93231 /* SignInViewController.swift */,
+				B09059BD1E972D2F00D93231 /* SignUpViewController.swift */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				B090599F1E970E9D00D93231 /* AppDelegate.swift in Sources */,
 				B09059B41E970F4C00D93231 /* User.swift in Sources */,
 				B09059B61E9710DD00D93231 /* Couple.swift in Sources */,
+				B09059BE1E972D2F00D93231 /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
