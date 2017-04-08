@@ -16,6 +16,8 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var emailTextField: HoshiTextField!
     @IBOutlet weak var passwordTextField: HoshiTextField!
     @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
+    
+    var curUser: User?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,7 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                     return
                 }
                 print("Facebook user signed in")
+                // TODO: facebook user segue to profile view
             }
         }
     }
@@ -65,12 +68,25 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print(err)
             } else {
                 print("User signed in")
+                // TODO: normal user segue to profile view
+                self.curUser = User.getCurrentUser()
+                if self.curUser != nil {
+                    self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
+                }
             }
         })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let x = "signInToProfileViewSegue"
+        if let identifier = segue.identifier {
+            if identifier == "signInToProfileViewSegue" {
+                if let dest = segue.destination as? ProfileViewController {
+                    if let curUser = self.curUser {
+                        dest.currentUser = curUser
+                    }
+                }
+            }
+        }
     }
 }
 

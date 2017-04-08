@@ -16,6 +16,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailTextField: HoshiTextField!
     @IBOutlet weak var passwordTextField: HoshiTextField!
     
+    var curUser: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,11 +54,12 @@ class SignUpViewController: UIViewController {
                     if let err = error {
                         print(err)
                     } else {
-//                        self.dismiss(animated: true, completion: nil)
                         print("User created")
-                        let user = User.getCurrentUser()
-                        user.saveToDB()
-                        self.performSegue(withIdentifier: "signUpToProfileViewSegue", sender: self)
+                        self.curUser = User.getCurrentUser()
+                        if let curUser = self.curUser {
+                            curUser.saveToDB()
+                            self.performSegue(withIdentifier: "signUpToProfileViewSegue", sender: self)
+                        }
                     }
                 })
             }
@@ -67,8 +70,7 @@ class SignUpViewController: UIViewController {
         if let identifier = segue.identifier {
             if identifier == "signUpToProfileViewSegue" {
                 if let dest = segue.destination as? ProfileViewController {
-                    let curUser = User.getCurrentUser()
-                    dest.currentUser = curUser
+                    dest.currentUser = self.curUser
                 }
             }
         }
