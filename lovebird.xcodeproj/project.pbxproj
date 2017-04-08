@@ -115,6 +115,7 @@
 		B09059B11E970EE200D93231 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				B09059C11E9855B900D93231 /* UserTableViewCell.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -125,7 +126,6 @@
 				B09059A01E970E9D00D93231 /* SignInViewController.swift */,
 				B09059BD1E972D2F00D93231 /* SignUpViewController.swift */,
 				B09059BF1E98555D00D93231 /* ProfileViewController.swift */,
-				B09059C11E9855B900D93231 /* UserTableViewCell.swift */,
 			);
 			name = controllers;
 			sourceTree = "<group>";

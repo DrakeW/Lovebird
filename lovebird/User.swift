@@ -14,24 +14,22 @@ class User {
     
     var id: String!
     var name: String!
-    var email: String!
+    var email: String?
     var partnerId: String?
     var status: String?
     
     let dbRef = FIRDatabase.database().reference()
     
-    init(_ id: String, _ name: String, _ email: String) {
+    init(_ id: String, _ name: String) {
         self.id = id
         self.name = name
-        self.email = email
     }
     
     static func getCurrentUser() -> User {
         let currentUser  = FIRAuth.auth()?.currentUser
         let name = currentUser?.displayName
         let id = currentUser?.uid
-        let email = currentUser?.email
-        return User.init(id!, name!, email!)
+        return User.init(id!, name!)
     }
     
     func isSingle() -> Bool {
@@ -43,7 +41,6 @@ class User {
     
     func saveToDB() {
         let dict: [String: AnyObject] = ["displayName": name as! AnyObject,
-                                         "email": email as! AnyObject,
                                          "partnerId": partnerId as! AnyObject,
                                          "status": status as! AnyObject]
         dbRef.child("Users/\(self.id!)").setValue(dict)

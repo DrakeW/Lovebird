@@ -38,7 +38,20 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                     return
                 }
                 print("Facebook user signed in")
-                // TODO: facebook user segue to profile view
+                // TODO: facebook user save name & segue to profile view
+                if FBSDKAccessToken.current() != nil {
+                    FBSDKGraphRequest.init(graphPath: "me", parameters: nil).start(completionHandler: { (conn, result, error) in
+                        if let error = error {
+                            print(error)
+                            return
+                        }
+                        let res = result as? NSDictionary
+                        self.curUser = User.getCurrentUser()
+                        self.curUser?.name = res?["name"] as! String
+                        self.curUser?.saveToDB()
+                        self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
+                    })
+                }
             }
         }
     }
