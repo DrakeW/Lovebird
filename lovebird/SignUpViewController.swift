@@ -52,12 +52,26 @@ class SignUpViewController: UIViewController {
                     if let err = error {
                         print(err)
                     } else {
-                        self.dismiss(animated: true, completion: nil)
+//                        self.dismiss(animated: true, completion: nil)
                         print("User created")
+                        let user = User.getCurrentUser()
+                        user.saveToDB()
+                        self.performSegue(withIdentifier: "signUpToProfileViewSegue", sender: self)
                     }
                 })
             }
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            if identifier == "signUpToProfileViewSegue" {
+                if let dest = segue.destination as? ProfileViewController {
+                    let curUser = User.getCurrentUser()
+                    dest.currentUser = curUser
+                }
+            }
+        }
     }
 
     @IBAction func signInButtonWasPressed(_ sender: UIButton) {

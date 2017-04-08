@@ -17,7 +17,6 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var passwordTextField: HoshiTextField!
     @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -68,6 +67,10 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print("User signed in")
             }
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let x = "signInToProfileViewSegue"
     }
 }
 
