@@ -13,6 +13,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var profileTableView: UITableView!
     @IBOutlet weak var matchStatusImageView: UIImageView!
+    @IBOutlet weak var findPartnerView: UIView!
+    
     var currentUser: User?
     
     let dbRef = FIRDatabase.database().reference()
@@ -22,6 +24,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         profileTableView.delegate = self
         profileTableView.dataSource = self
+        if let curUser = currentUser {
+            if curUser.isSingle() {
+                self.findPartnerView.alpha = 1
+                self.profileTableView.alpha = 0
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,8 +62,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             if let currentUser = currentUser {
                 currentUser.getPartner(completion: { (partner) in
-                    cell.userDisplayNameLabel.text = partner.name
-                    cell.userStatusLabel.text = partner.status
+                    cell.setUpCell(partner)
                 })
             }
         }

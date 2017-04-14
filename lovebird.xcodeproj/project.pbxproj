@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		325B30D720964C6CAC76BA93 /* Pods_lovebird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABC08C3E47A18A2C8E7A684 /* Pods_lovebird.framework */; };
 		B072E1AC1EA06D2D004AF63D /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072E1AB1EA06D2D004AF63D /* constants.swift */; };
+		B072E1B01EA07B5D004AF63D /* FindPartnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072E1AF1EA07B5D004AF63D /* FindPartnerViewController.swift */; };
 		B090599F1E970E9D00D93231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B090599E1E970E9D00D93231 /* AppDelegate.swift */; };
 		B09059A11E970E9D00D93231 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059A01E970E9D00D93231 /* SignInViewController.swift */; };
 		B09059A41E970E9D00D93231 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09059A21E970E9D00D93231 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		0ABC08C3E47A18A2C8E7A684 /* Pods_lovebird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lovebird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38C639078202C3BC035B8DC4 /* Pods-lovebird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lovebird.release.xcconfig"; path = "Pods/Target Support Files/Pods-lovebird/Pods-lovebird.release.xcconfig"; sourceTree = "<group>"; };
 		B072E1AB1EA06D2D004AF63D /* constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		B072E1AF1EA07B5D004AF63D /* FindPartnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindPartnerViewController.swift; sourceTree = "<group>"; };
 		B090599B1E970E9D00D93231 /* lovebird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lovebird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B090599E1E970E9D00D93231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09059A01E970E9D00D93231 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				B09059A01E970E9D00D93231 /* SignInViewController.swift */,
 				B09059BD1E972D2F00D93231 /* SignUpViewController.swift */,
 				B09059BF1E98555D00D93231 /* ProfileViewController.swift */,
+				B072E1AF1EA07B5D004AF63D /* FindPartnerViewController.swift */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B072E1B01EA07B5D004AF63D /* FindPartnerViewController.swift in Sources */,
 				B09059C01E98555D00D93231 /* ProfileViewController.swift in Sources */,
 				B09059A11E970E9D00D93231 /* SignInViewController.swift in Sources */,
 				B09059C21E9855B900D93231 /* UserTableViewCell.swift in Sources */,

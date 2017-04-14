@@ -49,7 +49,7 @@ class User {
     }
     
     func isSingle() -> Bool {
-        if self.partnerId != nil {
+        if self.partnerId != "" {
             return false
         }
         return true
