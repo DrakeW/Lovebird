@@ -53,15 +53,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         } else {
             if let currentUser = currentUser {
-                let partnerId = currentUser.partnerId
-                dbRef.child("users/\(partnerId!)").observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.exists() {
-                        let value = snapshot.value as? NSDictionary
-                        let displayName = value?["displayName"] as? String ?? ""
-                        let status = value?["status"] as? String ?? ""
-                        cell.userDisplayNameLabel.text = displayName
-                        cell.userStatusLabel.text = status
-                    }
+                currentUser.getPartner(completion: { (partner) in
+                    cell.userDisplayNameLabel.text = partner.name
+                    cell.userStatusLabel.text = partner.status
                 })
             }
         }

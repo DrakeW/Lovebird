@@ -46,10 +46,12 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                             return
                         }
                         let res = result as? NSDictionary
-                        self.curUser = User.getCurrentUser()
-                        self.curUser?.name = res?["name"] as! String
-                        self.curUser?.saveToDB()
-                        self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
+                        User.getCurrentUser(completion: { (curUser) in
+                            self.curUser = curUser
+                            self.curUser?.name = res?["name"] as! String
+                            self.curUser?.saveToDB()
+                            self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
+                        })
                     })
                 }
             }
@@ -82,10 +84,11 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
             } else {
                 print("User signed in")
                 // TODO: normal user segue to profile view
-                self.curUser = User.getCurrentUser()
-                if self.curUser != nil {
+                User.getCurrentUser(completion: { (curUser) in
+                    print(curUser)
+                    self.curUser = curUser
                     self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
-                }
+                })
             }
         })
     }

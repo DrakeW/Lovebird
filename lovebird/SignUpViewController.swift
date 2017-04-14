@@ -55,11 +55,13 @@ class SignUpViewController: UIViewController {
                         print(err)
                     } else {
                         print("User created")
-                        self.curUser = User.getCurrentUser()
-                        if let curUser = self.curUser {
-                            curUser.saveToDB()
-                            self.performSegue(withIdentifier: "signUpToProfileViewSegue", sender: self)
-                        }
+                        User.getCurrentUser(completion: { (curUser) in
+                            self.curUser = curUser
+                            if let curUser = self.curUser {
+                                curUser.saveToDB()
+                                self.performSegue(withIdentifier: "signUpToProfileViewSegue", sender: self)
+                            }
+                        })
                     }
                 })
             }

@@ -18,31 +18,61 @@ class User {
     var partnerId: String?
     var status: String?
     
-    let dbRef = FIRDatabase.database().reference()
+    static let dbRef = FIRDatabase.database().reference()
     
-    init(_ id: String, _ name: String) {
+    init(id: String, name: String) {
         self.id = id
         self.name = name
     }
     
-    static func getCurrentUser() -> User {
+    static func getCurrentUser(completion: @escaping (User) -> Void) {
         let currentUser  = FIRAuth.auth()?.currentUser
-        let name = currentUser?.displayName
-        let id = currentUser?.uid
-        return User.init(id!, name!)
+        let user_id = currentUser?.uid
+        if let user_id = user_id {
+            dbRef.child("\(firUserNode)/\(user_id)").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists() {
+                    let value = snapshot.value as? NSDictionary
+                    let displayName = value?["displayName"] as? String ?? ""
+                    let status = value?["status"] as? String ?? ""
+                    let email = value?["email"] as? String ?? ""
+                    let partnerId = value?["partnerId"] as? String ?? ""
+                    let curUser: User = User(id: user_id, name: displayName)
+                    curUser.status = status
+                    curUser.email = email
+                    curUser.partnerId = partnerId
+                    completion(curUser)
+                } else {
+                    print("WTF")
+                }
+            })
+        }
     }
     
     func isSingle() -> Bool {
-        if partnerId != nil {
+        if self.partnerId != nil {
             return false
         }
         return true
+    }
+    
+    func getPartner(completion: @escaping (User) -> Void) {
+        let partnerId = self.partnerId
+        User.dbRef.child("\(firUserNode)/\(partnerId!)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                let value = snapshot.value as? NSDictionary
+                let displayName = value?["displayName"] as? String ?? ""
+                let status = value?["status"] as? String ?? ""
+                let partner = User(id: partnerId!, name: displayName)
+                partner.status = status
+                completion(partner)
+            }
+        })
     }
     
     func saveToDB() {
         let dict: [String: AnyObject] = ["displayName": name as! AnyObject,
                                          "partnerId": partnerId as! AnyObject,
                                          "status": status as! AnyObject]
-        dbRef.child("Users/\(self.id!)").setValue(dict)
+        User.dbRef.child("\(firUserNode)/\(self.id!)").setValue(dict)
     }
 }
