@@ -15,5 +15,6 @@ target 'lovebird' do
   pod 'FBSDKLoginKit'
   
   pod 'TextFieldEffects'
+  pod 'CRNetworkButton'
 
 end

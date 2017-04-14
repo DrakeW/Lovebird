@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import TextFieldEffects
 
 class FindPartnerViewController: UIViewController {
 
+    @IBOutlet weak var partnerEmailTextField: KaedeTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +25,11 @@ class FindPartnerViewController: UIViewController {
     }
     
 
+    @IBAction func sendButtonWasPressed(_ sender: UIButton) {
+        if let partnerEmail = partnerEmailTextField.text {
+            print(partnerEmail)
+        }
+    }
     /*
     // MARK: - Navigation
 

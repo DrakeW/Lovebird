@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		325B30D720964C6CAC76BA93 /* Pods_lovebird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABC08C3E47A18A2C8E7A684 /* Pods_lovebird.framework */; };
-		B072E1AC1EA06D2D004AF63D /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072E1AB1EA06D2D004AF63D /* constants.swift */; };
+		B072E1AC1EA06D2D004AF63D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072E1AB1EA06D2D004AF63D /* Constants.swift */; };
 		B072E1B01EA07B5D004AF63D /* FindPartnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072E1AF1EA07B5D004AF63D /* FindPartnerViewController.swift */; };
+		B072E1B21EA084EA004AF63D /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072E1B11EA084EA004AF63D /* Request.swift */; };
 		B090599F1E970E9D00D93231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B090599E1E970E9D00D93231 /* AppDelegate.swift */; };
 		B09059A11E970E9D00D93231 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059A01E970E9D00D93231 /* SignInViewController.swift */; };
 		B09059A41E970E9D00D93231 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09059A21E970E9D00D93231 /* Main.storyboard */; };
 		B09059A61E970E9D00D93231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09059A51E970E9D00D93231 /* Assets.xcassets */; };
 		B09059A91E970E9D00D93231 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09059A71E970E9D00D93231 /* LaunchScreen.storyboard */; };
 		B09059B41E970F4C00D93231 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059B31E970F4C00D93231 /* User.swift */; };
-		B09059B61E9710DD00D93231 /* Couple.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059B51E9710DD00D93231 /* Couple.swift */; };
 		B09059BA1E97152400D93231 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B09059B91E97152400D93231 /* GoogleService-Info.plist */; };
 		B09059BE1E972D2F00D93231 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059BD1E972D2F00D93231 /* SignUpViewController.swift */; };
 		B09059C01E98555D00D93231 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09059BF1E98555D00D93231 /* ProfileViewController.swift */; };
@@ -26,8 +26,9 @@
 /* Begin PBXFileReference section */
 		0ABC08C3E47A18A2C8E7A684 /* Pods_lovebird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lovebird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38C639078202C3BC035B8DC4 /* Pods-lovebird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lovebird.release.xcconfig"; path = "Pods/Target Support Files/Pods-lovebird/Pods-lovebird.release.xcconfig"; sourceTree = "<group>"; };
-		B072E1AB1EA06D2D004AF63D /* constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		B072E1AB1EA06D2D004AF63D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B072E1AF1EA07B5D004AF63D /* FindPartnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindPartnerViewController.swift; sourceTree = "<group>"; };
+		B072E1B11EA084EA004AF63D /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		B090599B1E970E9D00D93231 /* lovebird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lovebird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B090599E1E970E9D00D93231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09059A01E970E9D00D93231 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		B09059A81E970E9D00D93231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B09059AA1E970E9D00D93231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B09059B31E970F4C00D93231 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		B09059B51E9710DD00D93231 /* Couple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Couple.swift; sourceTree = "<group>"; };
 		B09059B91E97152400D93231 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B09059BD1E972D2F00D93231 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B09059BF1E98555D00D93231 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +76,10 @@
 		B072E1AA1EA06D16004AF63D /* support */ = {
 			isa = PBXGroup;
 			children = (
-				B072E1AB1EA06D2D004AF63D /* constants.swift */,
+				B090599E1E970E9D00D93231 /* AppDelegate.swift */,
+				B072E1AB1EA06D2D004AF63D /* Constants.swift */,
+				B09059B91E97152400D93231 /* GoogleService-Info.plist */,
+				B09059AA1E970E9D00D93231 /* Info.plist */,
 			);
 			name = support;
 			sourceTree = "<group>";
@@ -106,12 +109,9 @@
 				B09059B21E970EEB00D93231 /* controllers */,
 				B09059B11E970EE200D93231 /* views */,
 				B09059B01E970ECB00D93231 /* models */,
-				B090599E1E970E9D00D93231 /* AppDelegate.swift */,
 				B09059A21E970E9D00D93231 /* Main.storyboard */,
 				B09059A51E970E9D00D93231 /* Assets.xcassets */,
 				B09059A71E970E9D00D93231 /* LaunchScreen.storyboard */,
-				B09059AA1E970E9D00D93231 /* Info.plist */,
-				B09059B91E97152400D93231 /* GoogleService-Info.plist */,
 			);
 			path = lovebird;
 			sourceTree = "<group>";
@@ -120,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				B09059B31E970F4C00D93231 /* User.swift */,
-				B09059B51E9710DD00D93231 /* Couple.swift */,
+				B072E1B11EA084EA004AF63D /* Request.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -275,9 +275,9 @@
 				B09059C21E9855B900D93231 /* UserTableViewCell.swift in Sources */,
 				B090599F1E970E9D00D93231 /* AppDelegate.swift in Sources */,
 				B09059B41E970F4C00D93231 /* User.swift in Sources */,
-				B09059B61E9710DD00D93231 /* Couple.swift in Sources */,
+				B072E1B21EA084EA004AF63D /* Request.swift in Sources */,
 				B09059BE1E972D2F00D93231 /* SignUpViewController.swift in Sources */,
-				B072E1AC1EA06D2D004AF63D /* constants.swift in Sources */,
+				B072E1AC1EA06D2D004AF63D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

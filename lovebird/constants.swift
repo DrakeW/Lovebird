@@ -8,4 +8,5 @@
 
 import Foundation
 
-let firUserNode = "Users"
+let firUserNode: String = "Users"
+let firFiredRequestNode: String = "firedRequests"
