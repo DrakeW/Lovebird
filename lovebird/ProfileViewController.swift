@@ -8,8 +8,9 @@
 
 import UIKit
 import FirebaseDatabase
+import CoreLocation
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 
     @IBOutlet weak var profileTableView: UITableView!
     @IBOutlet weak var matchStatusImageView: UIImageView!
@@ -18,19 +19,67 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var currentUser: User?
     
     let dbRef = FIRDatabase.database().reference()
+    let locManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         profileTableView.delegate = self
         profileTableView.dataSource = self
+        // choose view to show
         if let curUser = currentUser {
             if curUser.isSingle() {
                 self.findPartnerView.alpha = 1
                 self.profileTableView.alpha = 0
             }
         }
+        // set up locatoin manager
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.startUpdatingLocation()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        enableLocationService()
+    }
+    
+    
+    func enableLocationService()  {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways:
+            break
+        case .notDetermined:
+            locManager.requestAlwaysAuthorization()
+        case .authorizedWhenInUse, .restricted, .denied:
+            showLocationServiceAlert()
+            break
+        }
+    }
+    
+    func showLocationServiceAlert() {
+        let alertController = UIAlertController(title: "Background Location Access Denied",
+                                                message: "In order to collect location data, please open Settings and set location access for this app to 'Always'.",
+                                                preferredStyle: .alert)
+        let openSettingAction = UIAlertAction(title: "Open Settings",
+                                       style: .default) { (action) in
+                                        if let url = NSURL(string: UIApplicationOpenSettingsURLString) {
+                                            UIApplication.shared.open(url as URL,
+                                                                      options: [:],
+                                                                      completionHandler: nil)
+                                        }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(openSettingAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let lastLocation = locations[locations.count - 1]
+        // TODO: do something with location data
+        print(lastLocation)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
