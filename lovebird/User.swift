@@ -93,7 +93,7 @@ class User {
     }
     
     func setPartner(_ partnerId: String) {
-        User.dbRef.child("\(firUserNode)/\(self.id)/partnerId").setValue(partnerId)
+        User.dbRef.child("\(firUserNode)/\(self.id!)/partnerId").setValue(partnerId)
     }
     
     func saveToDB() {
