@@ -9,4 +9,6 @@
 import Foundation
 
 let firUserNode: String = "Users"
-let firFiredRequestNode: String = "firedRequests"
+let firFiredRequestNode: String = "FiredRequests"
+
+let firEmailNode: String = "Emails"

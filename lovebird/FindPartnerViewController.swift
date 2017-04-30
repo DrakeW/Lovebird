@@ -13,6 +13,8 @@ class FindPartnerViewController: UIViewController {
 
     @IBOutlet weak var partnerEmailTextField: KaedeTextField!
     
+    var currentUser: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,7 +29,14 @@ class FindPartnerViewController: UIViewController {
 
     @IBAction func sendButtonWasPressed(_ sender: UIButton) {
         if let partnerEmail = partnerEmailTextField.text {
-            print(partnerEmail)
+            User.getUser(from: partnerEmail, andDo: { (partner) in
+                if let curUser = self.currentUser {
+                    let req: Request = Request(from: curUser, to: partner)
+                    req.fire {
+                        
+                    }
+                }
+            })
         }
     }
     /*

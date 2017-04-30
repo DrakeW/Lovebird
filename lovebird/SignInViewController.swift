@@ -38,7 +38,6 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                     return
                 }
                 print("Facebook user signed in")
-                // TODO: facebook user save name & segue to profile view
                 if FBSDKAccessToken.current() != nil {
                     FBSDKGraphRequest.init(graphPath: "me", parameters: nil).start(completionHandler: { (conn, result, error) in
                         if let error = error {
@@ -83,7 +82,6 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print(err)
             } else {
                 print("User signed in")
-                // TODO: normal user segue to profile view
                 User.getCurrentUser(completion: { (curUser) in
                     print(curUser)
                     self.curUser = curUser
