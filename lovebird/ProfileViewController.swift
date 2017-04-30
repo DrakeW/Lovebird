@@ -81,6 +81,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let dest = segue.destination as? FindPartnerViewController {
                     if let curUser = self.currentUser {
                         dest.currentUser = curUser
+                        dest.parentVC = self
                     }
                 }
             }

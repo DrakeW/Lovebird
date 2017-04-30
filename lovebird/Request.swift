@@ -21,14 +21,16 @@ class Request {
         self.partner = partner
     }
     
-    func fire(completion: @escaping (_ partner: User) -> Void) {
+    func fire(afterAcceptDo completion: @escaping (_ partner: User) -> Void) {
         // check if request already exist
         self.dbRef.child("\(firFiredRequestNode)/\(partner.id!)+\(requester.id!)").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
-                // set partner_id for partner
-                self.partner.setPartner(self.requester.id)
                 // change request state
                 self.dbRef.child("\(firFiredRequestNode)/\(self.partner.id!)+\(self.requester.id!)/state").setValue(true)
+                // set partner id of self
+                self.requester.setPartner(self.partner.id)
+                // TODO: not sure if I should do this???
+                // self.partner.setPartner(self.requester.id)
                 completion(self.requester)
             } else {
                 let dict: [String: AnyObject] = ["state": false as! AnyObject]

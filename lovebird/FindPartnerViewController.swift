@@ -14,6 +14,7 @@ class FindPartnerViewController: UIViewController {
     @IBOutlet weak var partnerEmailTextField: KaedeTextField!
     
     var currentUser: User?
+    var parentVC: ProfileViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +33,11 @@ class FindPartnerViewController: UIViewController {
             User.getUser(from: partnerEmail, andDo: { (partner) in
                 if let curUser = self.currentUser {
                     let req: Request = Request(from: curUser, to: partner)
-                    req.fire(completion: { (partner) in
+                    req.fire(afterAcceptDo: { (partner) in
                         // hide find partner view && reload table view
+                        self.parentVC?.profileTableView.reloadData()
+                        self.parentVC?.profileTableView.alpha = 1
+                        self.view.alpha = 0
                     })
                 }
             })
