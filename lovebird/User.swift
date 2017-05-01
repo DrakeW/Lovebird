@@ -22,6 +22,8 @@ class User {
     var locationBuffer: [CLLocation] = []
     static let LOC_BUFFER_LIMIT = 10 // TODO: update every 10s. Need to tweak the numbers
     
+    var partnerLocations: [CLLocation] = []
+    
     static let dbRef = FIRDatabase.database().reference()
     
     init(id: String, name: String) {
@@ -130,6 +132,8 @@ class User {
                 let lat = value?["lat"] as? CLLocationDegrees ?? 0
                 let lon = value?["lon"] as? CLLocationDegrees ?? 0
                 let location: CLLocation = CLLocation(latitude: lat, longitude: lon)
+                // save partner location
+                self.partnerLocations.append(location)
                 completion(location)
             }
         })

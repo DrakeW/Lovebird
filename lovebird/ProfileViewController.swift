@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import CoreLocation
 import MapKit
+import JTMaterialTransition
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 
@@ -17,6 +18,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var matchStatusImageView: UIImageView!
     @IBOutlet weak var findPartnerView: UIView!
     @IBOutlet weak var partnerMapView: MKMapView!
+    
+    var toPartnerRouteTransition: JTMaterialTransition?
     
     var currentUser: User?
     var partner: User?
@@ -55,6 +58,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.startUpdatingLocation()
+        // set up transition
+        
+        // TODO: register an action for tapping on annotation view using this transition
+        self.toPartnerRouteTransition = JTMaterialTransition(animatedView: self.partnerMapView)
     }
     
     override func didReceiveMemoryWarning() {

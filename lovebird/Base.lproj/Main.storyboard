@@ -191,6 +191,7 @@
                         <outlet property="matchStatusImageView" destination="zrm-wi-rYD" id="dNb-Lr-wcX"/>
                         <outlet property="partnerMapView" destination="ymj-pZ-js2" id="3fV-VI-rXY"/>
                         <outlet property="profileTableView" destination="l0z-av-Beu" id="feF-m3-miX"/>
+                        <segue destination="SfC-IS-qja" kind="custom" identifier="ProfileToPartnerRouteViewSegue" id="cMG-Nq-CWo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKx-eC-cgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -356,6 +357,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u09-jf-EcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2072.8000000000002" y="94.902548725637189"/>
+        </scene>
+        <!--Partner Route View Controller-->
+        <scene sceneID="3T7-oN-oOS">
+            <objects>
+                <viewController id="SfC-IS-qja" customClass="PartnerRouteViewController" customModule="lovebird" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7rb-7k-GhJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="A0C-dm-USb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2vp-Sn-bfc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fTp-u1-fnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2527" y="679"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
