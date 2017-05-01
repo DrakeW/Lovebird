@@ -23,6 +23,7 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         facebookLoginButton.delegate = self
+        facebookLoginButton.readPermissions = ["email"]
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
@@ -39,18 +40,19 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
                 print("Facebook user signed in")
                 if FBSDKAccessToken.current() != nil {
-                    FBSDKGraphRequest.init(graphPath: "me", parameters: nil).start(completionHandler: { (conn, result, error) in
+                    FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields": "email,name"]).start(completionHandler: { (conn, result, error) in
                         if let error = error {
                             print(error)
                             return
                         }
                         let res = result as? NSDictionary
-                        User.getCurrentUser(completion: { (curUser) in
-                            self.curUser = curUser
-                            self.curUser?.name = res?["name"] as! String
-                            self.curUser?.saveToDB()
-                            self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
-                        })
+                        let name = res?["name"] as! String 
+                        let email = res?["email"] as! String
+                        let fbUser: User = User(id: (FIRAuth.auth()?.currentUser?.uid)!, name: name)
+                        fbUser.email = email
+                        fbUser.saveToDB()
+                        self.curUser = fbUser
+                        self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
                     })
                 }
             }
@@ -83,7 +85,6 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
             } else {
                 print("User signed in")
                 User.getCurrentUser(completion: { (curUser) in
-                    print(curUser)
                     self.curUser = curUser
                     self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
                 })

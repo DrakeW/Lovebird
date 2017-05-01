@@ -20,7 +20,7 @@ class Request {
         self.requester = user
         self.partner = partner
     }
-    
+
     func fire(afterAcceptDo completion: @escaping (_ partner: User) -> Void) {
         // check if request already exist
         self.dbRef.child("\(firFiredRequestNode)/\(partner.id!)+\(requester.id!)").observeSingleEvent(of: .value, with: { (snapshot) in
