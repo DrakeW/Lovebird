@@ -12,3 +12,5 @@ let firUserNode: String = "Users"
 let firFiredRequestNode: String = "FiredRequests"
 
 let firEmailNode: String = "Emails"
+
+let firLocationNode: String = "Locations"

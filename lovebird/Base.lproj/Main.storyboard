@@ -179,12 +179,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ymj-pZ-js2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="325"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="findPartnerView" destination="xLs-OC-dbb" id="ljX-NM-f4l"/>
                         <outlet property="matchStatusImageView" destination="zrm-wi-rYD" id="dNb-Lr-wcX"/>
+                        <outlet property="partnerMapView" destination="ymj-pZ-js2" id="3fV-VI-rXY"/>
                         <outlet property="profileTableView" destination="l0z-av-Beu" id="feF-m3-miX"/>
                     </connections>
                 </viewController>

@@ -38,6 +38,9 @@ class FindPartnerViewController: UIViewController {
                         self.parentVC?.profileTableView.reloadData()
                         self.parentVC?.profileTableView.alpha = 1
                         self.view.alpha = 0
+                        
+                        self.parentVC?.partnerMapView.alpha = 1
+                        self.parentVC?.matchStatusImageView.alpha = 0
                     })
                 }
             })

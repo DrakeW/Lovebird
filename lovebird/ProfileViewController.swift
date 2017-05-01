@@ -9,17 +9,21 @@
 import UIKit
 import FirebaseDatabase
 import CoreLocation
+import MapKit
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 
     @IBOutlet weak var profileTableView: UITableView!
     @IBOutlet weak var matchStatusImageView: UIImageView!
     @IBOutlet weak var findPartnerView: UIView!
+    @IBOutlet weak var partnerMapView: MKMapView!
     
     var currentUser: User?
     
     let dbRef = FIRDatabase.database().reference()
     let locManager = CLLocationManager()
+    
+    var partnerCurLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             if curUser.isSingle() {
                 self.findPartnerView.alpha = 1
                 self.profileTableView.alpha = 0
+                
+                self.matchStatusImageView.alpha = 1
+                self.partnerMapView.alpha = 0
+            } else {
+                self.findPartnerView.alpha = 0
+                self.profileTableView.alpha = 1
+                
+                self.matchStatusImageView.alpha = 0
+                self.partnerMapView.alpha = 1
             }
         }
         // set up locatoin manager
@@ -39,10 +52,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         locManager.startUpdatingLocation()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         enableLocationService()
     }
     
+    // MARK: - Location related service
     
     func enableLocationService()  {
         switch CLLocationManager.authorizationStatus() {
@@ -76,15 +95,31 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations[locations.count - 1]
-        // TODO: do something with location data
-        print(lastLocation)
+        // TODO: upload location data to firebase
+        self.currentUser?.saveLocation(lastLocation)
+        centerMapOnLocation(lastLocation)
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    let regionRadius: CLLocationDistance = 1000
+    
+    func centerMapOnLocation(_ location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+                                                                  regionRadius * 2.0,
+                                                                  regionRadius * 2.0)
+        // TODO: currently only showing self location && need to show partner location
+        partnerMapView.setRegion(coordinateRegion, animated: true)
+        addAnnotationToMap(location)
     }
+    
+    func addAnnotationToMap(_ location: CLLocation) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location.coordinate
+        annotation.title = self.currentUser?.name
+        partnerMapView.addAnnotation(annotation)
+    }
+    
+    // MARK: - user information
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

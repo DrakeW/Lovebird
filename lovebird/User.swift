@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseDatabase
 import FirebaseAuth
+import MapKit
 
 class User {
     
@@ -17,6 +18,9 @@ class User {
     var email: String?
     var partnerId: String?
     var status: String?
+    
+    var locationBuffer: [CLLocation] = []
+    static let LOC_BUFFER_LIMIT = 10
     
     static let dbRef = FIRDatabase.database().reference()
     
@@ -95,6 +99,25 @@ class User {
     func setPartner(_ partnerId: String) {
         self.partnerId = partnerId
         User.dbRef.child("\(firUserNode)/\(self.id!)/partnerId").setValue(partnerId)
+    }
+    
+    func saveLocation(_ location: CLLocation) {
+        locationBuffer.append(location)
+        print(locationBuffer.count)
+        if locationBuffer.count == User.LOC_BUFFER_LIMIT {
+            uploadLocationDataToServer()
+            locationBuffer.removeAll()
+        }
+    }
+    
+    func uploadLocationDataToServer() {
+        print("uploading")
+        let userLocationRef = User.dbRef.child("\(firLocationNode)/\(self.id!)")
+        locationBuffer.forEach({ (location) in
+            let locDict: [NSString: AnyObject] = ["lat": location.coordinate.latitude as! AnyObject,
+                                                  "lon": location.coordinate.longitude as! AnyObject]
+            userLocationRef.childByAutoId().setValue(locDict)
+        })
     }
     
     func saveToDB() {
