@@ -191,7 +191,7 @@
                         <outlet property="matchStatusImageView" destination="zrm-wi-rYD" id="dNb-Lr-wcX"/>
                         <outlet property="partnerMapView" destination="ymj-pZ-js2" id="3fV-VI-rXY"/>
                         <outlet property="profileTableView" destination="l0z-av-Beu" id="feF-m3-miX"/>
-                        <segue destination="SfC-IS-qja" kind="custom" identifier="ProfileToPartnerRouteViewSegue" id="cMG-Nq-CWo"/>
+                        <segue destination="ncQ-KN-bk4" kind="show" identifier="ProfileToPartnerRouteViewSegue" id="GuT-Ey-MtL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKx-eC-cgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -359,22 +359,40 @@
             <point key="canvasLocation" x="2072.8000000000002" y="94.902548725637189"/>
         </scene>
         <!--Partner Route View Controller-->
-        <scene sceneID="3T7-oN-oOS">
+        <scene sceneID="f4P-cK-pL7">
             <objects>
-                <viewController id="SfC-IS-qja" customClass="PartnerRouteViewController" customModule="lovebird" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ncQ-KN-bk4" customClass="PartnerRouteViewController" customModule="lovebird" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7rb-7k-GhJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="A0C-dm-USb"/>
+                        <viewControllerLayoutGuide type="top" id="BTn-HV-D7s"/>
+                        <viewControllerLayoutGuide type="bottom" id="gVD-tb-8Bd"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2vp-Sn-bfc">
+                    <view key="view" contentMode="scaleToFill" id="pJJ-mA-INp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-Ji-GiL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgI-Nv-2xa">
+                                <rect key="frame" x="22" y="28" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonWasPressed:" destination="ncQ-KN-bk4" eventType="touchUpInside" id="MAN-zp-ztb"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="EgI-Nv-2xa" id="UPr-sQ-SMx"/>
+                        <outlet property="partnerRouteMapView" destination="ulA-Ji-GiL" id="95H-cU-vjm"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fTp-u1-fnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VTX-6M-w93" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2527" y="679"/>
+            <point key="canvasLocation" x="2404" y="757.87106446776613"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

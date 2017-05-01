@@ -10,16 +10,13 @@ import UIKit
 import FirebaseDatabase
 import CoreLocation
 import MapKit
-import JTMaterialTransition
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var profileTableView: UITableView!
     @IBOutlet weak var matchStatusImageView: UIImageView!
     @IBOutlet weak var findPartnerView: UIView!
     @IBOutlet weak var partnerMapView: MKMapView!
-    
-    var toPartnerRouteTransition: JTMaterialTransition?
     
     var currentUser: User?
     var partner: User?
@@ -28,6 +25,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     let locManager = CLLocationManager()
     
     var partnerCurLocation: CLLocation?
+    var mapIsExpanded: Bool = false
+    var originalMapFrame: CGRect?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,10 +57,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.startUpdatingLocation()
-        // set up transition
-        
-        // TODO: register an action for tapping on annotation view using this transition
-        self.toPartnerRouteTransition = JTMaterialTransition(animatedView: self.partnerMapView)
+        // set up mapview delegate
+        self.partnerMapView.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -107,10 +104,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations[locations.count - 1]
-        // TODO: upload location data to firebase
         self.currentUser?.saveLocation(lastLocation)
     }
-    
     
     let regionRadius: CLLocationDistance = 1000
     
@@ -118,7 +113,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius * 2.0,
                                                                   regionRadius * 2.0)
-        // TODO: currently only showing self location && need to show partner location
         partnerMapView.setRegion(coordinateRegion, animated: true)
         addAnnotationToMap(location)
     }
@@ -129,6 +123,35 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         annotation.title = "Last Seen"
         annotation.subtitle = self.partner?.name ?? "Loading..."
         partnerMapView.addAnnotation(annotation)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        let reuseId = "partnerLocPin"
+        var annotationView = self.partnerMapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if let annotationView = annotationView {
+            annotationView.annotation = annotation
+        } else {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            annotationView?.canShowCallout = true
+            annotationView?.animatesDrop = true
+            annotationView?.pinTintColor = .purple
+            annotationView?.rightCalloutAccessoryView = UIButton.init(type: .detailDisclosure)
+        }
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let _ = self.partner {
+            self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
+        } else {
+            self.currentUser?.getPartner(completion: { (partner) in
+                self.partner = partner
+                self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
+            })
+        }
     }
     
     // MARK: - user information
@@ -146,7 +169,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: view partner's info
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -179,6 +202,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                     if let curUser = self.currentUser {
                         dest.currentUser = curUser
                         dest.parentVC = self
+                    }
+                }
+            } else if identifier == "ProfileToPartnerRouteViewSegue" {
+                if let dest = segue.destination as? PartnerRouteViewController {
+                    if let curUser = self.currentUser {
+                        dest.currentUser = curUser
+                        dest.partner = self.partner
                     }
                 }
             }
