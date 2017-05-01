@@ -20,7 +20,7 @@ class User {
     var status: String?
     
     var locationBuffer: [CLLocation] = []
-    static let LOC_BUFFER_LIMIT = 10
+    static let LOC_BUFFER_LIMIT = 10 // TODO: update every 10s. Need to tweak the numbers
     
     static let dbRef = FIRDatabase.database().reference()
     
@@ -28,6 +28,8 @@ class User {
         self.id = id
         self.name = name
     }
+    
+    // MARK: - general User related logic
     
     static func getUser(from email: String, andDo completion: @escaping (User) -> Void) {
         dbRef.child("\(firEmailNode)").queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -72,6 +74,8 @@ class User {
         }
     }
     
+    // MARK: - partner related logic
+    
     func isSingle() -> Bool {
         if let partnerId = self.partnerId {
             if partnerId == "" {
@@ -101,9 +105,10 @@ class User {
         User.dbRef.child("\(firUserNode)/\(self.id!)/partnerId").setValue(partnerId)
     }
     
+    // MARK: - location related logic
+    
     func saveLocation(_ location: CLLocation) {
         locationBuffer.append(location)
-        print(locationBuffer.count)
         if locationBuffer.count == User.LOC_BUFFER_LIMIT {
             uploadLocationDataToServer()
             locationBuffer.removeAll()
@@ -111,14 +116,26 @@ class User {
     }
     
     func uploadLocationDataToServer() {
-        print("uploading")
         let userLocationRef = User.dbRef.child("\(firLocationNode)/\(self.id!)")
-        locationBuffer.forEach({ (location) in
-            let locDict: [NSString: AnyObject] = ["lat": location.coordinate.latitude as! AnyObject,
-                                                  "lon": location.coordinate.longitude as! AnyObject]
-            userLocationRef.childByAutoId().setValue(locDict)
+        let lastLocation: CLLocation = locationBuffer[locationBuffer.count - 1]
+        let locDict: [NSString: AnyObject] = ["lat": lastLocation.coordinate.latitude as! AnyObject,
+                                              "lon": lastLocation.coordinate.longitude as! AnyObject]
+        userLocationRef.childByAutoId().setValue(locDict)
+    }
+    
+    func startListeningToLocation(of partnerId: String, completion: @escaping (CLLocation) -> Void) {
+        User.dbRef.child("\(firLocationNode)/\(partnerId)").observe(.childAdded, with: { (snapshot) in
+            if snapshot.exists() {
+                let value = snapshot.value as? NSDictionary
+                let lat = value?["lat"] as? CLLocationDegrees ?? 0
+                let lon = value?["lon"] as? CLLocationDegrees ?? 0
+                let location: CLLocation = CLLocation(latitude: lat, longitude: lon)
+                completion(location)
+            }
         })
     }
+    
+    // MARK: - save user info to DB
     
     func saveToDB() {
         let dict: [String: AnyObject] = ["displayName": name as! AnyObject,

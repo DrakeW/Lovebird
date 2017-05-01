@@ -19,6 +19,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var partnerMapView: MKMapView!
     
     var currentUser: User?
+    var partner: User?
     
     let dbRef = FIRDatabase.database().reference()
     let locManager = CLLocationManager()
@@ -30,8 +31,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         profileTableView.delegate = self
         profileTableView.dataSource = self
-        // choose view to show
         if let curUser = currentUser {
+            // choose view to show
             if curUser.isSingle() {
                 self.findPartnerView.alpha = 1
                 self.profileTableView.alpha = 0
@@ -44,6 +45,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 self.matchStatusImageView.alpha = 0
                 self.partnerMapView.alpha = 1
+                // listening to partner's location
+                curUser.startListeningToLocation(of: curUser.partnerId!, completion: { (location) in
+                    self.centerMapOnLocation(location)
+                })
             }
         }
         // set up locatoin manager
@@ -97,7 +102,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let lastLocation = locations[locations.count - 1]
         // TODO: upload location data to firebase
         self.currentUser?.saveLocation(lastLocation)
-        centerMapOnLocation(lastLocation)
     }
     
     
@@ -115,7 +119,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func addAnnotationToMap(_ location: CLLocation) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = location.coordinate
-        annotation.title = self.currentUser?.name
+        annotation.title = "Last Seen"
+        annotation.subtitle = self.partner?.name ?? "Loading..."
         partnerMapView.addAnnotation(annotation)
     }
     
@@ -146,6 +151,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             if let currentUser = currentUser {
                 currentUser.getPartner(completion: { (partner) in
+                    self.partner = partner
                     cell.setUpCell(partner)
                 })
             }

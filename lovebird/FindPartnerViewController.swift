@@ -41,6 +41,11 @@ class FindPartnerViewController: UIViewController {
                         
                         self.parentVC?.partnerMapView.alpha = 1
                         self.parentVC?.matchStatusImageView.alpha = 0
+                        self.parentVC?.partner = partner
+                        // start listening for partner's location data
+                        self.currentUser?.startListeningToLocation(of: partner.id!, completion: { (location) in
+                            self.parentVC?.centerMapOnLocation(location)
+                        })
                     })
                 }
             })
