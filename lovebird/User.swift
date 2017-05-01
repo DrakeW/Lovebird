@@ -20,7 +20,7 @@ class User {
     var status: String?
     
     var locationBuffer: [CLLocation] = []
-    static let LOC_BUFFER_LIMIT = 10 // TODO: update every 10s. Need to tweak the numbers
+    static let LOC_BUFFER_LIMIT = 30 // TODO: update every 10s. Need to tweak the numbers
     
     var partnerLocations: [CLLocation] = []
     

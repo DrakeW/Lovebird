@@ -16,5 +16,6 @@ target 'lovebird' do
   
   pod 'TextFieldEffects'
   pod 'CRNetworkButton'
+  pod 'JTMaterialTransition', '~> 2.0'
 
 end
