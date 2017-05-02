@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import CoreLocation
 import MapKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -31,24 +32,29 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        profileTableView.delegate = self
-        profileTableView.dataSource = self
-        if let curUser = currentUser {
-            // choose view to show
-            if curUser.isSingle() {
-                self.showSingleUserPage()
+        FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
+            if let _ = user {
+                // choose view to show
+                if let curUser = self.currentUser {
+                    self.profileTableView.delegate = self
+                    self.profileTableView.dataSource = self
+                    if curUser.isSingle() {
+                        self.showSingleUserPage()
+                    } else {
+                        self.showCouplePage()
+                        // listening to partner's location
+                        curUser.startListeningToLocation(of: curUser.partnerId!, completion: { (location) in
+                            self.centerMapOnLocation(location)
+                        })
+                    }
+                    self.initLocationManager()
+                    self.partnerMapView.delegate = self
+                }
             } else {
-                self.showCouplePage()
-                // listening to partner's location
-                curUser.startListeningToLocation(of: curUser.partnerId!, completion: { (location) in
-                    self.centerMapOnLocation(location)
-                })
+                // present login page
+                self.performSegue(withIdentifier: "ProfileToSignInViewSegue", sender: self)
             }
-        }
-        // set up locatoin manager
-        initLocationManager()
-        // set up mapview delegate
-        self.partnerMapView.delegate = self
+        })
     }
     
     func initLocationManager() {
@@ -172,7 +178,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // MARK: - user information
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let user = currentUser {

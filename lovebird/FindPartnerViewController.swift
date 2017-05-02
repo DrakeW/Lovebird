@@ -17,8 +17,8 @@ class FindPartnerViewController: UIViewController {
     var parentVC: ProfileViewController?
     
     override func viewDidLoad() {
+        self.hideKeyboardWhenTappedAround()
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 

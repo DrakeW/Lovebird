@@ -21,9 +21,17 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        facebookLoginButton.delegate = self
-        facebookLoginButton.readPermissions = ["email"]
+        self.hideKeyboardWhenTappedAround()
+        if let _ = FIRAuth.auth()?.currentUser {
+            User.getCurrentUser(completion: { (curUser) in
+                self.curUser = curUser
+                self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
+            })
+        } else {
+            // Do any additional setup after loading the view, typically from a nib.
+            facebookLoginButton.delegate = self
+            facebookLoginButton.readPermissions = ["email"]
+        }
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {

@@ -106,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
+            <point key="canvasLocation" x="-764" y="269"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="kga-Gp-uIK">
@@ -190,11 +190,12 @@
                         <outlet property="partnerMapView" destination="ymj-pZ-js2" id="3fV-VI-rXY"/>
                         <outlet property="profileTableView" destination="l0z-av-Beu" id="feF-m3-miX"/>
                         <segue destination="ncQ-KN-bk4" kind="show" identifier="ProfileToPartnerRouteViewSegue" id="GuT-Ey-MtL"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="ProfileToSignInViewSegue" id="G6e-pt-kcN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKx-eC-cgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1248.8" y="521.28935532233891"/>
+            <point key="canvasLocation" x="698" y="344"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="m8b-Dv-Il1">
@@ -307,7 +308,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMh-th-QVt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="936"/>
+            <point key="canvasLocation" x="-764" y="1212"/>
         </scene>
         <!--Find Partner View Controller-->
         <scene sceneID="WE9-0y-CHJ">
