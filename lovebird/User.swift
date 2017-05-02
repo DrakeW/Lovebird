@@ -18,6 +18,7 @@ class User {
     var email: String?
     var partnerId: String?
     var status: String?
+    var checkNum: Int = 0
     
     static let LOC_UPDATE_MIN_FREQ = 30
     static let LOC_UPDATE_MIN_DIST = 100
@@ -117,6 +118,20 @@ class User {
                 }
             })
         }
+    }
+    
+    func startListeningToPartnerCheckingEvent(with completion: @escaping (Int) -> Void) {
+        User.dbRef.child("\(firUserNode)/\(self.id!)/\(firUserCheckNumField)").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                let value = snapshot.value as? Int
+                if let checkNum = value {
+                    if checkNum > self.checkNum {
+                        self.checkNum = checkNum
+                        completion(self.checkNum)
+                    }
+                }
+            }
+        })
     }
     
     // MARK: - location related logic

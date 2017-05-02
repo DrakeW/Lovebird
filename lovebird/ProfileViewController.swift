@@ -12,6 +12,7 @@ import CoreLocation
 import MapKit
 import FirebaseAuth
 import FBSDKLoginKit
+import Whisper
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -49,6 +50,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                         // listening to partner's location
                         curUser.startListeningToLocation(of: curUser.partnerId!, completion: { (location) in
                             self.centerMapOnLocation(location)
+                        })
+                        curUser.startListeningToPartnerCheckingEvent(with: { (checkNum) in
+                            self.showBeingCheckedAlert(with: checkNum)
                         })
                     }
                     self.initLocationManager()
@@ -172,19 +176,27 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         self.currentUser?.checkPartnerRoute(self.partner, completion: { (checkNum) in
-            if checkNum <= dailyCheckLimit {
-                if let _ = self.partner {
-                    self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
-                } else {
-                    self.currentUser?.getPartner(completion: { (partner) in
-                        self.partner = partner
-                        self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
-                    })
-                }
+            // TODO: add dailly limit functionality
+            if let _ = self.partner {
+                self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
             } else {
-                // TODO: show alert that can only check again after 1 hour
+                self.currentUser?.getPartner(completion: { (partner) in
+                    self.partner = partner
+                    self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
+                })
             }
         })
+    }
+    
+    func showBeingCheckedAlert(with checkNum: Int) {
+        showAnouncement(title: "Shh...", subtitle: "You are being checked", image: nil)
+    }
+    
+    func showAnouncement(title: String, subtitle: String, image: UIImage?) {
+        let anouncement = Announcement(title: title, subtitle: subtitle, duration: 2) { 
+            print("user was checked")
+        }
+        Whisper.show(shout: anouncement, to: self)
     }
     
     // MARK: - user information
