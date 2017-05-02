@@ -35,11 +35,11 @@ class FindPartnerViewController: UIViewController {
                     let req: Request = Request(from: curUser, to: partner)
                     req.fire(afterAcceptDo: { (partner) in
                         // hide find partner view && reload table view
-                        self.parentVC?.profileTableView.reloadData()
-                        self.parentVC?.profileTableView.alpha = 1
-                        self.view.alpha = 0
+                        self.view.backgroundColor = UIColor.white.withAlphaComponent(0)
                         
+                        self.parentVC?.profileTableView.reloadData()
                         self.parentVC?.partnerMapView.alpha = 1
+                        self.parentVC?.profileTableView.alpha = 1
                         self.parentVC?.matchStatusImageView.alpha = 0
                         self.parentVC?.partner = partner
                         // start listening for partner's location data

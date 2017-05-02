@@ -36,17 +36,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let curUser = currentUser {
             // choose view to show
             if curUser.isSingle() {
-                self.findPartnerView.alpha = 1
-                self.profileTableView.alpha = 0
-                
-                self.matchStatusImageView.alpha = 1
-                self.partnerMapView.alpha = 0
+                self.showSingleUserPage()
             } else {
-                self.findPartnerView.alpha = 0
-                self.profileTableView.alpha = 1
-                
-                self.matchStatusImageView.alpha = 0
-                self.partnerMapView.alpha = 1
+                self.showCouplePage()
                 // listening to partner's location
                 curUser.startListeningToLocation(of: curUser.partnerId!, completion: { (location) in
                     self.centerMapOnLocation(location)
@@ -59,6 +51,23 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         locManager.startUpdatingLocation()
         // set up mapview delegate
         self.partnerMapView.delegate = self
+    }
+    
+    func showSingleUserPage() {
+        self.findPartnerView.alpha = 1
+        
+        self.profileTableView.alpha = 0
+        self.matchStatusImageView.alpha = 1
+        self.partnerMapView.alpha = 0
+    }
+    
+    func showCouplePage() {
+        // hide find partner view without setting the alpha of its subviews
+        self.findPartnerView.backgroundColor = UIColor.white.withAlphaComponent(0)
+        
+        self.profileTableView.alpha = 1
+        self.matchStatusImageView.alpha = 0
+        self.partnerMapView.alpha = 1
     }
     
     override func didReceiveMemoryWarning() {
@@ -173,7 +182,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = profileTableView.dequeueReusableCell(withIdentifier: "UserProfileCell") as! UserTableViewCell
+        let cell = profileTableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as! UserTableViewCell
         if indexPath.row == 0 {
             if let currentUser = currentUser {
                 cell.setUpCell(currentUser)
@@ -187,7 +196,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 currentUser.getPartner(completion: { (partner) in
                     self.partner = partner
                     cell.setUpCell(partner)
-                    cell.functionButton.titleLabel?.text = "ByeBye"
+                    cell.functionButton.titleLabel?.text = "Bye"
                     cell.functionButton.addTarget(self,
                                                   action: #selector(self.breakUpButtonClicked(_:)),
                                                   for: .touchUpInside)
@@ -205,12 +214,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func breakUpButtonClicked(_ sender: AnyObject) {
         print("break up button clicked")
         self.currentUser?.breakUp(with: self.partner, completion: { (error) in
-            if error != nil {
-                // TODO: show find partner view
+            if error == nil {
+                self.showSingleUserPage()
+            } else {
+                print(error)
             }
         })
     }
-    
 
 
     // MARK: - Navigation
