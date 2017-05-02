@@ -36,13 +36,16 @@ class Request {
                 let dict: [String: AnyObject] = ["state": false as! AnyObject]
                 self.dbRef.child("\(firFiredRequestNode)/\(self.requester.id!)+\(self.partner.id!)").setValue(dict)
                 // listen to request state change
-                self.dbRef.child("\(firFiredRequestNode)/\(self.requester.id!)+\(self.partner.id!)").observe(.value, with: { (snapshot) in
+                var handle: UInt = 0
+                let requestRef = self.dbRef.child("\(firFiredRequestNode)/\(self.requester.id!)+\(self.partner.id!)")
+                handle = requestRef.observe(.value, with: { (snapshot) in
                     if snapshot.exists() {
                         let value = snapshot.value as? NSDictionary
                         let state = value?["state"] as? Bool ?? false
                         if state == true {
                             self.requester.setPartner(self.partner.id)
-                            print("state changed!!")
+                            print("request accepted!")
+                            requestRef.removeObserver(withHandle: handle)
                             completion(self.partner)
                         }
                     }
