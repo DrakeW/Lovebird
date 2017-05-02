@@ -11,6 +11,7 @@ import FirebaseDatabase
 import CoreLocation
 import MapKit
 import FirebaseAuth
+import FBSDKLoginKit
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -18,6 +19,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var matchStatusImageView: UIImageView!
     @IBOutlet weak var findPartnerView: UIView!
     @IBOutlet weak var partnerMapView: MKMapView!
+    
+    let fbLoginManager = FBSDKLoginManager()
     
     var currentUser: User?
     var partner: User?
@@ -234,7 +237,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         })
     }
-
+    
+    // MARK: - sign out
+    
+    @IBAction func signOutButtonWasPressed(_ sender: UIButton) {
+        print("User signs out")
+        if let firAuth = FIRAuth.auth() {
+            do {
+                if FBSDKAccessToken.current() != nil {
+                    fbLoginManager.logOut()
+                }
+                try firAuth.signOut()
+            } catch let sigNoutError as NSError {
+                print("Error signing out: %@", sigNoutError)
+            }
+        }
+    }
 
     // MARK: - Navigation
 
