@@ -13,10 +13,13 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userDisplayNameLabel: UILabel!
     @IBOutlet weak var userStatusLabel: UILabel!
+    @IBOutlet weak var functionButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        functionButton.titleLabel?.numberOfLines = 0
+        functionButton.titleLabel?.lineBreakMode = .byWordWrapping
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,8 +33,5 @@ class UserTableViewCell: UITableViewCell {
         if let status =  user.status {
             userStatusLabel.text = status
         }
-    }
-
-    @IBAction func updateStatusButtonWasPressed(_ sender: UIButton) {
     }
 }

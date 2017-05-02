@@ -139,6 +139,29 @@ class User {
         })
     }
     
+    func breakUp(with partner: User?, completion: @escaping (Error!) -> Void) {
+        if let partner = partner {
+            let deletionUpdates = ["\(self.id!)/partnerId": NSNull(),
+                                   "\(partner.id!)/partnerId": NSNull()]
+            // 1. delete partner id from both user
+            User.dbRef.child("\(firUserNode)").updateChildValues(deletionUpdates, withCompletionBlock: { (error, dbRef) in
+                if let error = error {
+                    completion(error)
+                } else {
+                    // 2. remove fired request of them
+                    User.dbRef.child("\(firFiredRequestNode)/\(self.id!)+\(partner.id!)").removeValue()
+                    User.dbRef.child("\(firFiredRequestNode)/\(partner.id!)+\(self.id!)").removeValue()
+                    // 3. stop listening to each other's location update
+                    User.dbRef.child("\(firLocationNode)/\(self.id)").removeAllObservers()
+                    User.dbRef.child("\(firLocationNode)/\(partner.id)").removeAllObservers()
+                    completion(nil)
+                }
+            })
+        } else {
+            completion(nil)
+        }
+    }
+    
     // MARK: - save user info to DB
     
     func saveToDB() {

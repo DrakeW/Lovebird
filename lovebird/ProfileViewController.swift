@@ -177,17 +177,40 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         if indexPath.row == 0 {
             if let currentUser = currentUser {
                 cell.setUpCell(currentUser)
+                cell.functionButton.titleLabel?.text = "Update"
+                cell.functionButton.addTarget(self,
+                                              action: #selector(self.updateButtonClicked(_:)),
+                                              for: .touchUpInside)
             }
         } else {
             if let currentUser = currentUser {
                 currentUser.getPartner(completion: { (partner) in
                     self.partner = partner
                     cell.setUpCell(partner)
+                    cell.functionButton.titleLabel?.text = "ByeBye"
+                    cell.functionButton.addTarget(self,
+                                                  action: #selector(self.breakUpButtonClicked(_:)),
+                                                  for: .touchUpInside)
                 })
             }
         }
         return cell
     }
+    
+    func updateButtonClicked(_ sender: AnyObject) {
+        print("update button clicked")
+        // TODO: add update status function
+    }
+    
+    func breakUpButtonClicked(_ sender: AnyObject) {
+        print("break up button clicked")
+        self.currentUser?.breakUp(with: self.partner, completion: { (error) in
+            if error != nil {
+                // TODO: show find partner view
+            }
+        })
+    }
+    
 
 
     // MARK: - Navigation
