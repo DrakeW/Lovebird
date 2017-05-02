@@ -31,7 +31,7 @@ class Request {
                 self.requester.setPartner(self.partner.id)
                 // TODO: not sure if I should do this???
                 // self.partner.setPartner(self.requester.id)
-                completion(self.requester)
+                completion(self.partner)
             } else {
                 let dict: [String: AnyObject] = ["state": false as! AnyObject]
                 self.dbRef.child("\(firFiredRequestNode)/\(self.requester.id!)+\(self.partner.id!)").setValue(dict)

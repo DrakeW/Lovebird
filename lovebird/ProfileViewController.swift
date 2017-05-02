@@ -126,6 +126,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     let regionRadius: CLLocationDistance = 1000
     
     func centerMapOnLocation(_ location: CLLocation) {
+        partnerMapView.removeAnnotations(partnerMapView.annotations)
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius * 2.0,
                                                                   regionRadius * 2.0)
