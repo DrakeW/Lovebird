@@ -46,11 +46,18 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         // set up locatoin manager
-        locManager.delegate = self
-        locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.startUpdatingLocation()
+        initLocationManager()
         // set up mapview delegate
         self.partnerMapView.delegate = self
+    }
+    
+    func initLocationManager() {
+        locManager.delegate = self
+        locManager.distanceFilter = CLLocationDistance(User.LOC_UPDATE_MIN_DIST) // only if user has moved 30 meters
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.allowDeferredLocationUpdates(untilTraveled: CLLocationDistance(), timeout: TimeInterval(User.LOC_UPDATE_MIN_FREQ))
+        locManager.allowsBackgroundLocationUpdates = true
+        locManager.startUpdatingLocation()
     }
     
     func showSingleUserPage() {

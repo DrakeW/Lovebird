@@ -26,7 +26,6 @@ class FindPartnerViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     @IBAction func sendButtonWasPressed(_ sender: UIButton) {
         if let partnerEmail = partnerEmailTextField.text {

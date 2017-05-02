@@ -19,8 +19,8 @@ class User {
     var partnerId: String?
     var status: String?
     
-    var locationBuffer: [CLLocation] = []
-    static let LOC_BUFFER_LIMIT = 30 // TODO: update every 10s. Need to tweak the numbers
+    static let LOC_UPDATE_MIN_FREQ = 30
+    static let LOC_UPDATE_MIN_DIST = 100
     
     var partnerLocations: [CLLocation] = []
     
@@ -110,18 +110,9 @@ class User {
     // MARK: - location related logic
     
     func saveLocation(_ location: CLLocation) {
-        locationBuffer.append(location)
-        if locationBuffer.count == User.LOC_BUFFER_LIMIT {
-            uploadLocationDataToServer()
-            locationBuffer.removeAll()
-        }
-    }
-    
-    func uploadLocationDataToServer() {
         let userLocationRef = User.dbRef.child("\(firLocationNode)/\(self.id!)")
-        let lastLocation: CLLocation = locationBuffer[locationBuffer.count - 1]
-        let locDict: [NSString: AnyObject] = ["lat": lastLocation.coordinate.latitude as! AnyObject,
-                                              "lon": lastLocation.coordinate.longitude as! AnyObject]
+        let locDict: [NSString: AnyObject] = ["lat": location.coordinate.latitude as! AnyObject,
+                                              "lon": location.coordinate.longitude as! AnyObject]
         userLocationRef.childByAutoId().setValue(locDict)
     }
     
