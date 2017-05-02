@@ -15,7 +15,8 @@ target 'lovebird' do
   pod 'FBSDKLoginKit'
   
   pod 'TextFieldEffects'
-  pod 'CRNetworkButton'
-  pod 'JTMaterialTransition', '~> 2.0'
+  pod 'Whisper'
+  pod 'PMAlertController'
+  
 
 end
