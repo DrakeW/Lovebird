@@ -29,6 +29,10 @@ class FindPartnerViewController: UIViewController {
 
     @IBAction func sendButtonWasPressed(_ sender: UIButton) {
         if let partnerEmail = partnerEmailTextField.text {
+            if partnerEmail == self.currentUser?.email {
+                // TODO: show alert
+                return
+            }
             User.getUser(from: partnerEmail, andDo: { (partner) in
                 if let curUser = self.currentUser {
                     let req: Request = Request(from: curUser, to: partner)

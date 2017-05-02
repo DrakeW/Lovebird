@@ -34,6 +34,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
         FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
             if let _ = user {
@@ -170,14 +171,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if let _ = self.partner {
-            self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
-        } else {
-            self.currentUser?.getPartner(completion: { (partner) in
-                self.partner = partner
-                self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
-            })
-        }
+        self.currentUser?.checkPartnerRoute(self.partner, completion: { (checkNum) in
+            if checkNum <= dailyCheckLimit {
+                if let _ = self.partner {
+                    self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
+                } else {
+                    self.currentUser?.getPartner(completion: { (partner) in
+                        self.partner = partner
+                        self.performSegue(withIdentifier: "ProfileToPartnerRouteViewSegue", sender: view)
+                    })
+                }
+            } else {
+                // TODO: show alert that can only check again after 1 hour
+            }
+        })
     }
     
     // MARK: - user information
@@ -193,12 +200,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 0
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = profileTableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as! UserTableViewCell
+        cell.selectionStyle = .none
         if indexPath.row == 0 {
             if let currentUser = currentUser {
                 cell.setUpCell(currentUser)
@@ -208,6 +212,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                                               for: .touchUpInside)
             }
         } else {
+            cell.userStatusTextField.isUserInteractionEnabled = false
             if let currentUser = currentUser {
                 currentUser.getPartner(completion: { (partner) in
                     self.partner = partner
@@ -224,7 +229,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func updateButtonClicked(_ sender: AnyObject) {
         print("update button clicked")
-        // TODO: add update status function
+        let curUserCell: UserTableViewCell = self.profileTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! UserTableViewCell
+        if let status = curUserCell.userStatusTextField.text {
+            self.currentUser?.updateStatus(status, completion: { (error) in
+                if let error = error {
+                    // TODO: show update failure message
+                    print(error)
+                }
+            })
+        }
     }
     
     func breakUpButtonClicked(_ sender: AnyObject) {

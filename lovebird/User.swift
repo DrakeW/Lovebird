@@ -34,7 +34,7 @@ class User {
     // MARK: - general User related logic
     
     static func getUser(from email: String, andDo completion: @escaping (User) -> Void) {
-        dbRef.child("\(firEmailNode)").queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (snapshot) in
+        dbRef.child("\(firEmailNode)").queryOrdered(byChild: firEmailEmailField).queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let value = snapshot.value as? NSDictionary
                 let uid: String = (value?.allKeys as! [String])[0]
@@ -51,13 +51,11 @@ class User {
         dbRef.child("\(firUserNode)/\(user_id)").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let value = snapshot.value as? NSDictionary
-                let displayName = value?["displayName"] as? String ?? ""
-                let status = value?["status"] as? String ?? ""
-                let email = value?["email"] as? String ?? ""
-                let partnerId = value?["partnerId"] as? String ?? ""
+                let displayName = value?[firUserDisplayNameField] as? String ?? ""
+                let status = value?[firUserStatusField] as? String ?? ""
+                let partnerId = value?[firUserPartnerIdField] as? String ?? ""
                 let user: User = User(id: user_id, name: displayName)
                 user.status = status
-                user.email = email
                 user.partnerId = partnerId
                 completion(user)
             } else {
@@ -93,8 +91,8 @@ class User {
         User.dbRef.child("\(firUserNode)/\(partnerId!)").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let value = snapshot.value as? NSDictionary
-                let displayName = value?["displayName"] as? String ?? ""
-                let status = value?["status"] as? String ?? ""
+                let displayName = value?[firUserDisplayNameField] as? String ?? ""
+                let status = value?[firUserStatusField] as? String ?? ""
                 let partner = User(id: partnerId!, name: displayName)
                 partner.status = status
                 completion(partner)
@@ -104,15 +102,29 @@ class User {
     
     func setPartner(_ partnerId: String) {
         self.partnerId = partnerId
-        User.dbRef.child("\(firUserNode)/\(self.id!)/partnerId").setValue(partnerId)
+        User.dbRef.child("\(firUserNode)/\(self.id!)/\(firUserPartnerIdField)").setValue(partnerId)
+    }
+    
+    func checkPartnerRoute(_ partner: User?, completion: @escaping (Int) -> Void) {
+        if let partner = partner {
+            User.dbRef.child("\(firUserNode)/\(partner.id!)").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists() {
+                    let value = snapshot.value as? NSDictionary
+                    var check_in_num = value?[firUserCheckNumField] as? Int ?? 0
+                    check_in_num += 1
+                    User.dbRef.child("\(firUserNode)/\(partner.id!)/\(firUserCheckNumField)").setValue(check_in_num)
+                    completion(check_in_num)
+                }
+            })
+        }
     }
     
     // MARK: - location related logic
     
     func saveLocation(_ location: CLLocation) {
         let userLocationRef = User.dbRef.child("\(firLocationNode)/\(self.id!)")
-        let locDict: [NSString: AnyObject] = ["lat": location.coordinate.latitude as! AnyObject,
-                                              "lon": location.coordinate.longitude as! AnyObject]
+        let locDict: [String: AnyObject] = [firLocationLatField: location.coordinate.latitude as! AnyObject,
+                                            firLocationLonField: location.coordinate.longitude as! AnyObject]
         userLocationRef.childByAutoId().setValue(locDict)
     }
     
@@ -120,8 +132,8 @@ class User {
         User.dbRef.child("\(firLocationNode)/\(partnerId)").observe(.childAdded, with: { (snapshot) in
             if snapshot.exists() {
                 let value = snapshot.value as? NSDictionary
-                let lat = value?["lat"] as? CLLocationDegrees ?? 0
-                let lon = value?["lon"] as? CLLocationDegrees ?? 0
+                let lat = value?[firLocationLatField] as? CLLocationDegrees ?? 0
+                let lon = value?[firLocationLonField] as? CLLocationDegrees ?? 0
                 let location: CLLocation = CLLocation(latitude: lat, longitude: lon)
                 // save partner location
                 self.partnerLocations.append(location)
@@ -132,8 +144,8 @@ class User {
     
     func breakUp(with partner: User?, completion: @escaping (Error!) -> Void) {
         if let partner = partner {
-            let deletionUpdates = ["\(self.id!)/partnerId": NSNull(),
-                                   "\(partner.id!)/partnerId": NSNull()]
+            let deletionUpdates = ["\(self.id!)/\(firUserPartnerIdField)": NSNull(),
+                                   "\(partner.id!)/\(firUserPartnerIdField)": NSNull()]
             // 1. delete partner id from both user
             User.dbRef.child("\(firUserNode)").updateChildValues(deletionUpdates, withCompletionBlock: { (error, dbRef) in
                 if let error = error {
@@ -153,16 +165,28 @@ class User {
         }
     }
     
+    // MARK: - status related logic
+    
+    func updateStatus(_ status: String, completion: @escaping (Error!) -> Void) {
+        User.dbRef.child("\(firUserNode)/\(self.id!)/\(firUserStatusField)").setValue(status) { (error, dbRef) in
+            if let _ = error {
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
     // MARK: - save user info to DB
     
     func saveToDB() {
-        let dict: [String: AnyObject] = ["displayName": name as! AnyObject,
-                                         "partnerId": partnerId as! AnyObject,
-                                         "status": status as! AnyObject]
+        let dict: [String: AnyObject] = [firUserDisplayNameField: name as! AnyObject,
+                                         firUserPartnerIdField: partnerId as! AnyObject,
+                                         firUserStatusField: status as! AnyObject]
         User.dbRef.child("\(firUserNode)/\(self.id!)").setValue(dict)
         
-        let dict2: [String: AnyObject] = ["email": email as! AnyObject,
-                                          "uid": self.id! as! AnyObject]
+        let dict2: [String: AnyObject] = [firEmailEmailField: email as! AnyObject,
+                                          firEmailUIDField: self.id! as! AnyObject]
         User.dbRef.child("\(firEmailNode)/\(self.id!)").setValue(dict2)
     }
 }

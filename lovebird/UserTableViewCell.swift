@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import TextFieldEffects
 
 class UserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userDisplayNameLabel: UILabel!
-    @IBOutlet weak var userStatusLabel: UILabel!
     @IBOutlet weak var functionButton: UIButton!
+    @IBOutlet weak var userStatusTextField: YoshikoTextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +32,7 @@ class UserTableViewCell: UITableViewCell {
     func setUpCell(_ user: User) {
         userDisplayNameLabel.text = user.name
         if let status =  user.status {
-            userStatusLabel.text = status
+            userStatusTextField.text = status
         }
     }
 }
