@@ -26,14 +26,14 @@ class Request {
         self.dbRef.child("\(firFiredRequestNode)/\(partner.id!)+\(requester.id!)").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 // change request state
-                self.dbRef.child("\(firFiredRequestNode)/\(self.partner.id!)+\(self.requester.id!)/state").setValue(true)
+                self.dbRef.child("\(firFiredRequestNode)/\(self.partner.id!)+\(self.requester.id!)/\(firFiredRequestStateField)").setValue(true)
                 // set partner id of self
                 self.requester.setPartner(self.partner.id)
                 // TODO: not sure if I should do this???
                 // self.partner.setPartner(self.requester.id)
                 completion(self.partner)
             } else {
-                let dict: [String: AnyObject] = ["state": false as! AnyObject]
+                let dict: [String: AnyObject] = [firFiredRequestStateField: false as! AnyObject]
                 self.dbRef.child("\(firFiredRequestNode)/\(self.requester.id!)+\(self.partner.id!)").setValue(dict)
                 // listen to request state change
                 var handle: UInt = 0
@@ -41,7 +41,7 @@ class Request {
                 handle = requestRef.observe(.value, with: { (snapshot) in
                     if snapshot.exists() {
                         let value = snapshot.value as? NSDictionary
-                        let state = value?["state"] as? Bool ?? false
+                        let state = value?[firFiredRequestStateField] as? Bool ?? false
                         if state == true {
                             self.requester.setPartner(self.partner.id)
                             print("request accepted!")
