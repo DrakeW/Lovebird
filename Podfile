@@ -18,6 +18,7 @@ target 'lovebird' do
   pod 'Whisper'
   pod 'PMAlertController'
   pod 'SCLAlertView', '~> 0.7'
+  pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   
 
 end

@@ -52,7 +52,7 @@ class PartnerRouteViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer! {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.blue
+            polylineRenderer.strokeColor = UIColor.flatWatermelon
             polylineRenderer.lineWidth = 5
             return polylineRenderer
         }

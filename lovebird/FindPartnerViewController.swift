@@ -51,6 +51,8 @@ class FindPartnerViewController: UIViewController {
                             self.parentVC?.centerMapOnLocation(location)
                         })
                     })
+                    SCLAlertView().showSuccess("Success!", subTitle: "Request was sent.")
+                    self.partnerEmailTextField.text = ""
                 }
             })
         }

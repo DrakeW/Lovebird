@@ -13,6 +13,7 @@ import MapKit
 import FirebaseAuth
 import FBSDKLoginKit
 import Whisper
+import ChameleonFramework
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -217,6 +218,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.selectionStyle = .none
         if indexPath.row == 0 {
             if let currentUser = currentUser {
+                cell.profileImageView.image = #imageLiteral(resourceName: "bird2")
+                cell.profileImageView.backgroundColor = UIColor.randomFlat.lighten(byPercentage: 0.5)
                 cell.setUpCell(currentUser)
                 cell.functionButton.titleLabel?.text = "Update"
                 cell.functionButton.addTarget(self,
@@ -224,6 +227,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                                               for: .touchUpInside)
             }
         } else {
+            cell.profileImageView.image = #imageLiteral(resourceName: "bird1")
+            cell.profileImageView.backgroundColor = UIColor.randomFlat.lighten(byPercentage: 0.5)
             cell.userStatusTextField.isUserInteractionEnabled = false
             if let currentUser = currentUser {
                 currentUser.getPartner(completion: { (partner) in
