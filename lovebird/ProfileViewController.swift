@@ -14,6 +14,7 @@ import FirebaseAuth
 import FBSDKLoginKit
 import Whisper
 import ChameleonFramework
+import SCLAlertView
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -251,7 +252,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.currentUser?.updateStatus(status, completion: { (error) in
                 if let error = error {
                     // TODO: show update failure message
-                    print(error)
+                    SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+                } else {
+                    SCLAlertView().showSuccess("Success", subTitle: "Status updated!")
                 }
             })
         }
@@ -259,13 +262,24 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func breakUpButtonClicked(_ sender: AnyObject) {
         print("break up button clicked")
-        self.currentUser?.breakUp(with: self.partner, completion: { (error) in
-            if error == nil {
-                self.showSingleUserPage()
-            } else {
-                print(error)
-            }
-        })
+        let alertViewAppearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false
+        )
+        let alertView = SCLAlertView(appearance: alertViewAppearance)
+        alertView.addButton("Yes") { 
+            self.currentUser?.breakUp(with: self.partner, completion: { (error) in
+                if error == nil {
+                    self.showSingleUserPage()
+                } else {
+                    print(error)
+                }
+            })
+        }
+        alertView.addButton("No") { 
+            print("Thank God")
+        }
+        alertView.showWarning("Sorry...", subTitle: "Are you sure to break up with \(self.partner?.name ?? "your partner?")")
+        
     }
     
     // MARK: - sign out
