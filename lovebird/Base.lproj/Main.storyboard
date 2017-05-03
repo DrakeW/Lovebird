@@ -120,12 +120,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zrm-wi-rYD">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="325"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sad_face" translatesAutoresizingMaskIntoConstraints="NO" id="zrm-wi-rYD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="422"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.98918324710000005" green="0.48576545719999997" blue="0.53852784629999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLs-OC-dbb">
-                                <rect key="frame" x="0.0" y="333" width="375" height="334"/>
+                                <rect key="frame" x="0.0" y="430" width="375" height="237"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="YSg-hk-BsK" kind="embed" identifier="ProfileViewToFindPartnerViewSegue" id="CjP-Da-AvR"/>
@@ -344,11 +345,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Cqp-qu-1lh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5On-dA-62V">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="334"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="237"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUp-7b-9n5" customClass="KaedeTextField" customModule="TextFieldEffects">
-                                <rect key="frame" x="34" y="149" width="231" height="71"/>
+                                <rect key="frame" x="38" y="83" width="231" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.98918324710000005" green="0.48576545719999997" blue="0.53852784629999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
@@ -364,7 +365,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naL-W9-6qS">
-                                <rect key="frame" x="264" y="149" width="61" height="71"/>
+                                <rect key="frame" x="277" y="82" width="61" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Send"/>
@@ -419,6 +420,9 @@
             <point key="canvasLocation" x="2404" y="757.87106446776613"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="sad_face" width="677" height="575"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Byv-Vi-0zq"/>
     </inferredMetricsTieBreakers>
