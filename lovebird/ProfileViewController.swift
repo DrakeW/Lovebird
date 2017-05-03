@@ -56,6 +56,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                         curUser.startListeningToPartnerCheckingEvent(with: { (checkNum) in
                             self.showBeingCheckedAlert(with: checkNum)
                         })
+                        curUser.startListeningToBreakUp {
+                            self.showSingleUserPage()
+                        }
                     }
                     self.initLocationManager()
                     self.partnerMapView.delegate = self

@@ -182,6 +182,14 @@ class User {
         }
     }
     
+    func startListeningToBreakUp(completion: @escaping (Void) -> (Void)) {
+        User.dbRef.child("\(firUserNode)/\(self.id!)/\(firUserPartnerIdField)").observe(.value, with: { (snapshot) in
+            if !snapshot.exists() {
+                completion()
+            }
+        })
+    }
+    
     // MARK: - status related logic
     
     func updateStatus(_ status: String, completion: @escaping (Error!) -> Void) {
