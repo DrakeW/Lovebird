@@ -21,6 +21,7 @@ class UserTableViewCell: UITableViewCell {
         // Initialization code
         functionButton.titleLabel?.numberOfLines = 0
         functionButton.titleLabel?.lineBreakMode = .byWordWrapping
+        profileImageView.layer.cornerRadius = 30
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
