@@ -198,7 +198,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func showAnouncement(title: String, subtitle: String, image: UIImage?) {
-        let anouncement = Announcement(title: title, subtitle: subtitle, duration: 2) { 
+        let anouncement = Announcement(title: title, subtitle: subtitle, duration: 2) {
             print("user was checked")
         }
         Whisper.show(shout: anouncement, to: self)
