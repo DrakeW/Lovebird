@@ -176,16 +176,19 @@
                                     <segue destination="YSg-hk-BsK" kind="embed" identifier="ProfileViewToFindPartnerViewSegue" id="CjP-Da-AvR"/>
                                 </connections>
                             </containerView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ymj-pZ-js2">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ymj-pZ-js2">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="325"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="325" id="CF3-bj-RCS"/>
                                 </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5V-Kr-RTm">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5V-Kr-RTm">
                                 <rect key="frame" x="281" y="28" width="78" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.98918324710000005" green="0.48576545719999997" blue="0.53852784629999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1Me-9Z-BPG"/>
+                                    <constraint firstAttribute="width" constant="78" id="CsE-g6-HnD"/>
+                                </constraints>
                                 <state key="normal" title="Sign Out">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -193,7 +196,7 @@
                                     <action selector="signOutButtonWasPressed:" destination="H88-rk-Abr" eventType="touchUpInside" id="cg0-Ii-l1w"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="176" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l0z-av-Beu">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="176" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l0z-av-Beu">
                                 <rect key="frame" x="0.0" y="333" width="375" height="334"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -273,10 +276,13 @@
                             <constraint firstItem="zrm-wi-rYD" firstAttribute="width" secondItem="xDS-nc-cna" secondAttribute="width" id="FbC-5Q-28H"/>
                             <constraint firstItem="7S4-ik-9e7" firstAttribute="top" secondItem="l0z-av-Beu" secondAttribute="bottom" id="alf-gh-11h"/>
                             <constraint firstItem="l0z-av-Beu" firstAttribute="top" secondItem="ymj-pZ-js2" secondAttribute="bottom" constant="8" id="bXo-Wd-Po5"/>
+                            <constraint firstItem="ymj-pZ-js2" firstAttribute="top" secondItem="8ai-Qt-mdW" secondAttribute="bottom" constant="-20" id="kbK-Um-gjk"/>
                             <constraint firstItem="l0z-av-Beu" firstAttribute="width" secondItem="xDS-nc-cna" secondAttribute="width" id="ktI-Sg-LB3"/>
                             <constraint firstItem="7S4-ik-9e7" firstAttribute="top" secondItem="xLs-OC-dbb" secondAttribute="bottom" id="nhK-nF-0Dl"/>
                             <constraint firstItem="xLs-OC-dbb" firstAttribute="width" secondItem="zrm-wi-rYD" secondAttribute="width" id="qNA-oh-Whr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="I5V-Kr-RTm" secondAttribute="trailing" id="r4s-uh-gjz"/>
                             <constraint firstItem="ymj-pZ-js2" firstAttribute="width" secondItem="xDS-nc-cna" secondAttribute="width" id="rA1-jX-t17"/>
+                            <constraint firstItem="I5V-Kr-RTm" firstAttribute="top" secondItem="8ai-Qt-mdW" secondAttribute="bottom" constant="8" id="vYF-K5-FTS"/>
                             <constraint firstItem="zrm-wi-rYD" firstAttribute="centerX" secondItem="xDS-nc-cna" secondAttribute="centerX" id="w2V-xf-MtP"/>
                         </constraints>
                     </view>
@@ -504,10 +510,13 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-Ji-GiL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgI-Nv-2xa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgI-Nv-2xa">
                                 <rect key="frame" x="22" y="28" width="64" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.98918324710000005" green="0.48576545719999997" blue="0.53852784629999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="JBn-Fv-Hij"/>
+                                    <constraint firstAttribute="height" constant="30" id="lrQ-28-r0k"/>
+                                </constraints>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -521,6 +530,8 @@
                             <constraint firstItem="ulA-Ji-GiL" firstAttribute="width" secondItem="pJJ-mA-INp" secondAttribute="width" id="C1M-ex-qzJ"/>
                             <constraint firstItem="ulA-Ji-GiL" firstAttribute="centerY" secondItem="pJJ-mA-INp" secondAttribute="centerY" id="YmA-2y-x4H"/>
                             <constraint firstItem="gVD-tb-8Bd" firstAttribute="top" secondItem="ulA-Ji-GiL" secondAttribute="bottom" id="cLV-Pi-aZn"/>
+                            <constraint firstItem="EgI-Nv-2xa" firstAttribute="top" secondItem="BTn-HV-D7s" secondAttribute="bottom" constant="8" id="gcQ-Vm-c55"/>
+                            <constraint firstItem="EgI-Nv-2xa" firstAttribute="leading" secondItem="pJJ-mA-INp" secondAttribute="leadingMargin" constant="6" id="hgs-0L-OSd"/>
                             <constraint firstItem="ulA-Ji-GiL" firstAttribute="height" secondItem="pJJ-mA-INp" secondAttribute="height" id="nQc-Qi-UJC"/>
                             <constraint firstItem="ulA-Ji-GiL" firstAttribute="centerX" secondItem="pJJ-mA-INp" secondAttribute="centerX" id="nVq-1Z-M5L"/>
                         </constraints>
