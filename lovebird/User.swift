@@ -35,7 +35,7 @@ class User {
     // MARK: - general User related logic
     
     static func getUser(from email: String, andDo completion: @escaping (User) -> Void) {
-        dbRef.child("\(firEmailNode)").queryOrdered(byChild: firEmailEmailField).queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (snapshot) in
+        dbRef.child("\(firUserNode)").queryOrdered(byChild: firUserEmailField).queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let value = snapshot.value as? NSDictionary
                 let uid: String = (value?.allKeys as! [String])[0]
@@ -54,10 +54,12 @@ class User {
                 let value = snapshot.value as? NSDictionary
                 let displayName = value?[firUserDisplayNameField] as? String ?? ""
                 let status = value?[firUserStatusField] as? String ?? ""
+                let email = value?[firUserEmailField] as? String ?? ""
                 let partnerId = value?[firUserPartnerIdField] as? String ?? ""
                 let user: User = User(id: user_id, name: displayName)
                 user.status = status
                 user.partnerId = partnerId
+                user.email = email
                 completion(user)
             } else {
                 print("WTF")
@@ -197,11 +199,8 @@ class User {
     func saveToDB() {
         let dict: [String: AnyObject] = [firUserDisplayNameField: name as! AnyObject,
                                          firUserPartnerIdField: partnerId as! AnyObject,
-                                         firUserStatusField: status as! AnyObject]
+                                         firUserStatusField: status as! AnyObject,
+                                         firUserEmailField: email as! AnyObject]
         User.dbRef.child("\(firUserNode)/\(self.id!)").setValue(dict)
-        
-        let dict2: [String: AnyObject] = [firEmailEmailField: email as! AnyObject,
-                                          firEmailUIDField: self.id! as! AnyObject]
-        User.dbRef.child("\(firEmailNode)/\(self.id!)").setValue(dict2)
     }
 }

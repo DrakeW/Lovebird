@@ -17,6 +17,7 @@ target 'lovebird' do
   pod 'TextFieldEffects'
   pod 'Whisper'
   pod 'PMAlertController'
+  pod 'SCLAlertView', '~> 0.7'
   
 
 end

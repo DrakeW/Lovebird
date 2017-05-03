@@ -8,6 +8,7 @@
 
 import UIKit
 import TextFieldEffects
+import SCLAlertView
 
 class FindPartnerViewController: UIViewController {
 
@@ -31,6 +32,7 @@ class FindPartnerViewController: UIViewController {
         if let partnerEmail = partnerEmailTextField.text {
             if partnerEmail == self.currentUser?.email {
                 // TODO: show alert
+                SCLAlertView().showError("Oops...", subTitle: "You just entered your own email.")
                 return
             }
             User.getUser(from: partnerEmail, andDo: { (partner) in

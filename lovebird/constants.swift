@@ -13,13 +13,10 @@ let firUserDisplayNameField: String = "displayName"
 let firUserPartnerIdField: String = "partnerId"
 let firUserStatusField: String = "status"
 let firUserCheckNumField: String = "checkNum"
+let firUserEmailField: String = "email"
 
 let firFiredRequestNode: String = "FiredRequests"
 let firFiredRequestStateField: String = "state"
-
-let firEmailNode: String = "Emails"
-let firEmailEmailField: String = "email"
-let firEmailUIDField: String = "uid"
 
 let firLocationNode: String = "Locations"
 let firLocationLatField: String = "lat"
