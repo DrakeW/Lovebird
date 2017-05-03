@@ -31,7 +31,6 @@ class FindPartnerViewController: UIViewController {
     @IBAction func sendButtonWasPressed(_ sender: UIButton) {
         if let partnerEmail = partnerEmailTextField.text {
             if partnerEmail == self.currentUser?.email {
-                // TODO: show alert
                 SCLAlertView().showError("Oops...", subTitle: "You just entered your own email.")
                 return
             }
