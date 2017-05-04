@@ -56,11 +56,17 @@ class SignInViewController: UIViewController, FBSDKLoginButtonDelegate {
                         let res = result as? NSDictionary
                         let name = res?["name"] as! String 
                         let email = res?["email"] as! String
-                        let fbUser: User = User(id: (FIRAuth.auth()?.currentUser?.uid)!, name: name)
-                        fbUser.email = email
-                        fbUser.saveToDB()
-                        self.curUser = fbUser
-                        self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
+                        User.getCurrentUser(completion: { (user) in
+                            if let user = user {
+                                self.curUser = user
+                            } else {
+                                let fbUser: User = User(id: (FIRAuth.auth()?.currentUser?.uid)!, name: name)
+                                fbUser.email = email
+                                fbUser.saveToDB()
+                                self.curUser = fbUser
+                            }
+                            self.performSegue(withIdentifier: "signInToProfileViewSegue", sender: self)
+                        })
                     })
                 }
             }

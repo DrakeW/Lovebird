@@ -36,7 +36,7 @@ class FindPartnerViewController: UIViewController {
             }
             User.getUser(from: partnerEmail, andDo: { (partner) in
                 if let curUser = self.currentUser {
-                    let req: Request = Request(from: curUser, to: partner)
+                    let req: Request = Request(from: curUser, to: partner!)
                     req.fire(afterAcceptDo: { (partner) in
                         // hide find partner view && reload table view
                         self.view.backgroundColor = UIColor.white.withAlphaComponent(0)

@@ -34,7 +34,7 @@ class User {
     
     // MARK: - general User related logic
     
-    static func getUser(from email: String, andDo completion: @escaping (User) -> Void) {
+    static func getUser(from email: String, andDo completion: @escaping (User?) -> Void) {
         dbRef.child("\(firUserNode)").queryOrdered(byChild: firUserEmailField).queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let value = snapshot.value as? NSDictionary
@@ -48,7 +48,7 @@ class User {
         })
     }
     
-    static func getUser(_ user_id: String, andDo completion: @escaping (User) -> Void) {
+    static func getUser(_ user_id: String, andDo completion: @escaping (User?) -> Void) {
         dbRef.child("\(firUserNode)/\(user_id)").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let value = snapshot.value as? NSDictionary
@@ -62,17 +62,21 @@ class User {
                 user.email = email
                 completion(user)
             } else {
-                print("WTF")
+                completion(nil)
             }
         })
     }
     
-    static func getCurrentUser(completion: @escaping (User) -> Void) {
+    static func getCurrentUser(completion: @escaping (User?) -> Void) {
         let currentUser  = FIRAuth.auth()?.currentUser
         let user_id = currentUser?.uid
         if let user_id = user_id {
             User.getUser(user_id, andDo: { (user) in
-                completion(user)
+                if let user = user {
+                    completion(user)
+                } else {
+                    completion(nil)
+                }
             })
         }
     }
